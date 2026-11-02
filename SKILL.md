@@ -59,6 +59,11 @@ Récupère le texte (message collé, ou `WebFetch` si lien ; si la page est vide
 - **Exigences éliminatoires** (diplôme, expérience, langue, localisation, disponibilité), **compétences clés**, **souhaitées**, **soft skills**, contexte et mission réelle derrière le jargon.
 - **Mots-clés exacts** de l'offre (casse et forme comme écrites) dans `mots_cles.txt`, une ligne par mot, 15 à 30 maximum, triés par importance.
 - Signaux de ce que le recruteur craint (ex. « autonome » = peur du suivi, « équipe distribuée » = peur de la communication).
+- **Pièces demandées** : relève mot à mot ce que l'offre demande d'envoyer (CV, lettre, mail avec parcours, projet, lien, formulaire, message public). C'est elle qui décide des livrables, pas une liste fixe :
+  - Aucun CV ni lettre demandé et un « mail avec parcours et projet » : le **mail devient la pièce principale** (180 à 240 mots) avec un paragraphe de parcours qui raconte les étapes dans l'ordre et un paragraphe sur un projet développé, lien public si possible. Ne produis ni lettre ni CV joint par défaut ; propose le CV « à disposition » en une phrase. Range ce qui n'est pas demandé dans `non-demande/` plutôt que de le supprimer.
+  - CV demandé sans lettre : CV + mail court. Lettre demandée : lettre de 150 à 200 mots. Formulaire ou plateforme : prépare les réponses dans `reponses.md`.
+  - Un message public demandé (commentaire du post) : prépare-le dans `commentaire.txt`, 25 à 40 mots, sans répéter l'adresse mail en public.
+  - En cas de doute sur ce qui est demandé, pose la question en interactif avec la recommandation la plus prudente (envoyer le moins de pièces que l'offre n'exige, plus un CV « à disposition »).
 
 ### 2. CV existants et fiche de faits
 Lis `faits.md`, puis chaque PDF du dossier avec `pdftotext -layout`. Dresse l'inventaire : expériences, réalisations chiffrées, stack, projets, formation, langues, liens. En cas de divergence entre versions (chiffre, intitulé, date), `faits.md` tranche ; sinon demande. Tout fait nouveau découvert dans le portfolio ou confirmé par l'utilisateur en cours de session est ajouté à `faits.md`.
