@@ -26,8 +26,12 @@ Aucune donnée personnelle n'est écrite dans ce skill. Tout vient de `~/.config
 - Sources : les PDF de premier niveau de `<cv_dir>`.
 - **Fiche de faits** `<cv_dir>/faits.md` : source de vérité validée par l'utilisateur. Elle prime sur les CV en cas de divergence. Chaque fait non confirmé porte `(à valider)`.
 - **Suivi** `<cv_dir>/suivi.csv`, une ligne par candidature.
-- Sortie : `<cv_dir>/candidatures/<entreprise>-<poste>-<AAAA-MM-JJ>/` avec `offre.txt`, `analyse.md`, `mots_cles.txt`, `cv.html`, `CV_<Nom>_<Entreprise>.pdf`, `mail.txt`, `lettre.txt`, `revue.md`.
+- Sortie : `<cv_dir>/candidatures/<entreprise>-<poste>-<AAAA-MM-JJ>/` avec `offre.txt`, `analyse.md`, `mots_cles.txt`, `cv.html`, `CV_<Prenom>_<Poste>.pdf` (voir « Nom du fichier »), `mail.txt`, `lettre.txt`, `revue.md`.
 - Scripts dans `~/.claude/skills/cv-adapte/scripts/` : `setup.sh`, `render_pdf.mjs`, `ats_check.sh`. Gabarit : `references/template-cv.html`. Prompt relecteur : `references/reviewer-prompt.md`.
+
+## Nom du fichier CV
+
+Convention : `CV_<Prenom>_<Poste>.pdf`, par exemple `CV_Camille_Developpeur_Web_Alternance.pdf`. Le **prénom d'usage** est lu dans `faits.md` (ligne « Prénom d'usage ») et demandé à l'installation. Le **poste** est l'intitulé de l'offre, sans accent, en 5 mots au plus, sans nom d'entreprise. Génère-le toujours avec `scripts/nom_fichier.py "<prénom>" "<poste>"` : il retire les accents, met les mots en majuscule initiale (les sigles de 4 lettres ou moins comme IA, UX, SQL restent en capitales) et sépare par des tirets bas. Le dossier de candidature porte déjà l'entreprise et la date. Si deux CV du même dossier ont le même nom, ajoute la date (`_2026-11-02`).
 
 ## Questions à l'utilisateur : interactives, avec recommandation vérifiée
 
@@ -43,6 +47,7 @@ Pose les questions avec l'outil `AskUserQuestion` (jamais en texte libre quand u
 1. Lance `scripts/setup.sh check` : il vérifie node, poppler, playwright-core et Chromium, et installe ce qui manque. S'il répond INCOMPLET, explique ce qui manque et arrête-toi.
 2. Si `~/.config/cv-adapte/config.json` existe, passe au flux. Sinon, onboarding :
    - Demande le **CV de base** : chemin d'un PDF ou d'un dossier de CV (l'utilisateur peut en donner plusieurs, par exemple un par type de poste). Vérifie que les fichiers existent et que `pdftotext` en extrait du texte ; un PDF sans texte (scan) est signalé, et l'utilisateur doit fournir une version texte. Propose de les copier dans le dossier `<cv_dir>` (recommandé : `~/Documents/cv-adapte`, ou un dossier existant du même type).
+   - Demande le **prénom d'usage** (celui qui figurera dans le nom de fichier, ex. le prénom que l'on te donne au quotidien) et note-le dans `faits.md`.
    - Demande le **lien du portfolio**, ainsi que GitHub et LinkedIn. **Le portfolio est facultatif** : « je n'en ai pas » est une réponse normale, on enregistre une valeur vide. Vérifie que chaque lien donné répond (`WebFetch`) ; sinon dis-le et continue sans. Sans portfolio, voir l'étape 3.
    - Demande le **style du CV** (question interactive, voir « Design du CV »), puis la **photo** (recommandé : non).
    - Écris la config avec `scripts/setup.sh config <cv_dir> <portfolio> <github>`.
@@ -111,7 +116,7 @@ Pars de `references/template-cv.html`, écris `cv.html`.
 - Ce qui ne sert pas l'offre est coupé.
 - Contraintes ATS : une colonne, pas de tableau, pas d'image, pas d'icône, pas de barre de niveau, texte réel, titres de section standard, dates homogènes, email + téléphone + liens en clair, polices système.
 
-Rends : `node ~/.claude/skills/cv-adapte/scripts/render_pdf.mjs cv.html CV_<Nom>_<Entreprise>.pdf`, puis `~/.claude/skills/cv-adapte/scripts/ats_check.sh CV_...pdf mots_cles.txt`. Corrige jusqu'à : lisible, tient dans la limite de pages, tous les mots-clés vrais présents. Regarde aussi le rendu (pdftoppm en PNG puis Read) pour la mise en page.
+Rends : `node ~/.claude/skills/cv-adapte/scripts/render_pdf.mjs cv.html <nom_du_cv>.pdf`, puis `~/.claude/skills/cv-adapte/scripts/ats_check.sh CV_...pdf mots_cles.txt`. Corrige jusqu'à : lisible, tient dans la limite de pages, tous les mots-clés vrais présents. Regarde aussi le rendu (pdftoppm en PNG puis Read) pour la mise en page.
 
 ### 7. Mail et lettre
 Le lien du portfolio n'apparaît que s'il existe et répond. Sans portfolio, cite à la place le lien GitHub ou le projet public le plus pertinent.

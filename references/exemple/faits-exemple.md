@@ -1,6 +1,7 @@
 # Fiche de faits : Camille Martin (personne fictive, jeu d'essai)
 
 ## Identité
+- Prénom d'usage : Camille
 - Camille Martin · 06 00 00 00 00 · camille.martin@example.com · https://example.com/camille · https://github.com/camille-exemple
 
 ## Contraintes (utilisées pour l'éligibilité)
