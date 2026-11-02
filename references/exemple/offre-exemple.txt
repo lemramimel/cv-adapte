@@ -1,0 +1,4 @@
+Atelier Lumen (agence web, Lyon) – Développeur web junior, alternance 12 mois, présentiel 3 jours par semaine à Lyon.
+Missions : développement de sites et d'outils internes en TypeScript et React, connexion d'API, automatisations avec n8n, échanges avec les clients.
+Profil : étudiant en informatique Bac+3 à Bac+5, bases en JavaScript ou TypeScript, Git. Anglais lu.
+Candidature : CV et mail à recrutement@atelier-lumen.example.

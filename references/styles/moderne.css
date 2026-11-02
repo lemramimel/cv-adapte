@@ -1,0 +1,7 @@
+/* Moderne : une seule couleur d'accent sobre (bleu nuit), contraste AA sur blanc. Tech, startups, agences, produit. */
+h1 { color: #14305a; }
+.titre { color: #14305a; }
+h2 { color: #14305a; border-bottom: 1.5px solid #14305a; }
+.poste span:first-child { color: #111; }
+.lieu { color: #444; }
+a { color: #14305a; }

@@ -1,0 +1,6 @@
+/* Compact : plus dense, pour parcours long ; reste lisible (corps >= 9 pt). Peut tenir sur 2 pages si l'expérience le justifie. */
+@page { margin: 10mm 12mm; }
+body { font-size: 9.2pt; line-height: 1.26; }
+h1 { font-size: 17pt; }
+h2 { margin: 6px 0 3px; }
+li { margin-bottom: 1px; }

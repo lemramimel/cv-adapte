@@ -1,0 +1,8 @@
+TypeScript
+React
+API
+n8n
+Git
+JavaScript
+alternance
+clients
