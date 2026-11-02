@@ -21,6 +21,9 @@ echo "$out" | grep -q "MANQUE  email" && ko "email non détecté" || ok "email e
 echo "$out" | grep -qE "Trouvés : (7|8) / 8" && ok "mots-clés de l'offre fictive" || { ko "mots-clés"; echo "$out" | grep -E "ABSENT|Trouv"; }
 echo "$out" | grep -q "ALERTE" && ko "peu de texte extractible" || ok "texte extractible"
 
+# nom de fichier
+[ "$(python3 "$here/nom_fichier.py" "Éloïse" "Développeur IA – alternance (12 mois)")" = "CV_Eloise_Developpeur_IA_Alternance_12_Mois.pdf" ] && ok "convention de nom de fichier" || ko "nom_fichier.py"
+
 # styles : chacun doit rester sur 1 page et lisible par l'ATS
 for st in classique moderne compact; do
   node "$here/render_pdf.mjs" "$ex/cv-exemple.html" "$tmp/$st.pdf" "$here/../references/styles/$st.css" >/dev/null 2>&1 || { ko "rendu style $st"; continue; }
