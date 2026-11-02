@@ -33,7 +33,7 @@ real="${XDG_CONFIG_HOME:-$HOME/.config}/cv-adapte/config.json"
 if [ -f "$real" ]; then
   for v in $(python3 -c "import json,sys;d=json.load(open('$real'));print(*[str(x) for x in d.values() if x and str(x).startswith(('http','/'))])" 2>/dev/null); do
     short="${v#https://}"; short="${short#http://}"
-    if grep -rIl --exclude-dir=node_modules --exclude=package-lock.json --exclude=README.md --exclude=LICENSE -F "$short" "$here/.." 2>/dev/null | grep -q .; then ko "donnée personnelle trouvée dans le skill : $short"; else ok "pas de fuite : $short"; fi
+    if grep -rIl --exclude-dir=node_modules --exclude-dir=.git --exclude=package-lock.json --exclude=README.md --exclude=LICENSE -F "$short" "$here/.." 2>/dev/null | grep -q .; then ko "donnée personnelle trouvée dans le skill : $short"; else ok "pas de fuite : $short"; fi
   done
 fi
 [ "$fail" = 0 ] && echo "TOUT EST OK" || echo "ECHECS"
